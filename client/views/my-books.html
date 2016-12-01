@@ -7,7 +7,7 @@
         <h2>Date subscribed: {{(b.dateBorrowed).toString().split('T')[1].split('.')[0].split(':')[0]}}:{{(b.dateBorrowed).toString().split('T')[1].split('.')[0].split(':')[1]}} GMT, {{(b.dateBorrowed).toString().split('T')[0]}}</h2>
         <h2>Subscription ends: {{(b.dueDate).toString().split('T')[1].split('.')[0].split(':')[0]}}:{{(b.dueDate).toString().split('T')[1].split('.')[0].split(':')[1]}} GMT, {{(b.dueDate).toString().split('T')[0]}}</h2>
         <h2>Days remaining: {{b.daysRemaining}}</h2>
-        <h2>Renewals available: {{b.renewalsAvailable}}</h2>
+        <h2>Renewals available: {{b.renewalsAvailable}}/2</h2>
         <h2>e-Link: <a href="">https://www.elib.com/{{currentUser.id}}/{{(b.bName).toLowerCase().split(' ').join('')}}</a></h2>
     </header>
   </article>

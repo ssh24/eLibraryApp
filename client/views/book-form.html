@@ -1,5 +1,5 @@
 <section>
-  <form name="form" ng-submit="submitForm()">
+  <form name="form" ng-submit="submitForm()" ng-disabled="false">
     <fieldset>
       <legend>{{action}} book form</legend>
 
@@ -9,13 +9,14 @@
         <br></br>
       </div>
 
-      <div class="due-date">
-        <h2>Chosen e-Book subscription will expire on {{(dueDate).toUTCString().split(' ')[0]}} {{(dueDate).toUTCString().split(' ')[1]}} {{(dueDate).toUTCString().split(' ')[2]}} {{(dueDate).toUTCString().split(' ')[3]}} at {{(dueDate).toUTCString().split(' ')[4].split(':')[0]}}:{{(dueDate).toUTCString().split(' ')[4].split(':')[1]}} GMT</h2>
+      <div class="actions">
+        <button ng-click="showAlert()">{{action}} book</button>
         <br></br>
       </div>
 
-      <div class="actions">
-        <button>{{action}} book</button>
+      <div ng-show="dueDate" class="hideByDefault">
+        <h2>Your e-Book {{selectedBook.bName}} has been subscribed successfully. </h2>
+        <h2>Subscription will expire on {{(dueDate).toUTCString().split(' ')[0]}} {{(dueDate).toUTCString().split(' ')[1]}} {{(dueDate).toUTCString().split(' ')[2]}} {{(dueDate).toUTCString().split(' ')[3]}} at {{(dueDate).toUTCString().split(' ')[4].split(':')[0]}}:{{(dueDate).toUTCString().split(' ')[4].split(':')[1]}} GMT</h2>
       </div>
     </fieldset>
   </form>

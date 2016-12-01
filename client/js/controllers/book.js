@@ -27,6 +27,7 @@ angular
       $scope.action = 'Borrow';
       $scope.books = [];
       $scope.selectedBook;
+      $scope.dueDate;
       $scope.isDisabled = false;
       var DAY_IN_MILLISECONDS = 1000 * 60 * 60 * 24;
       var BORROW_LIMIT = 14 * DAY_IN_MILLISECONDS;
@@ -42,9 +43,13 @@ angular
         .then(function(books) {
           $scope.books = books;
           $scope.selectedBook = $scope.selectedBook || books[0];
-        });
 
-      $scope.dueDate = new Date(Date.now() + BORROW_LIMIT);
+          $scope.showAlert = function() {
+            $scope.isDisabled = true;
+            if ($scope.books.length > 0)
+              $scope.dueDate = new Date(Date.now() + BORROW_LIMIT);
+          };
+        });
 
       $scope.submitForm = function() {
         Book.updateAll({
@@ -59,7 +64,11 @@ angular
           clientId: $scope.currentUser.id,
           renewalsAvailable: 2
         }, function(err, info) {
-          $state.go('my-books');
+          if ($scope.books.length > 0) {
+            setTimeout(function() {
+              $state.go('my-books');
+            }, 4000);
+          }
         });
       };
     }
@@ -70,6 +79,7 @@ angular
       $scope.action = 'Renew';
       $scope.books = [];
       $scope.selectedBook;
+      $scope.dueDate;
       $scope.isDisabled = false;
       var DAY_IN_MILLISECONDS = 1000 * 60 * 60 * 24;
       var BORROW_LIMIT = 14 * DAY_IN_MILLISECONDS;
@@ -88,26 +98,32 @@ angular
         .then(function(books) {
           $scope.books = books;
           $scope.selectedBook = $scope.selectedBook || books[0];
-        });;
 
-      $scope.dueDate = new Date(Date.now() + BORROW_LIMIT);
+          $scope.showAlert = function() {
+            if ($scope.books.length > 0)
+              $scope.dueDate = new Date(Date.now() + BORROW_LIMIT);
+          };
 
-      $scope.renewForm = function() {
-        Book.updateAll({
-          where: {
-            bName: $scope.selectedBook.bName,
-          }
-        }, {
-          bStatus: 'unavailable',
-          dateBorrowed: Date.now(),
-          dueDate: Date.now() + BORROW_LIMIT,
-          daysRemaining: 14,
-          clientId: $scope.currentUser.id,
-          renewalsAvailable: $scope.selectedBook.renewalsAvailable - 1
-        }, function(err, info) {
-          $state.go('my-books');
+          $scope.renewForm = function() {
+            Book.updateAll({
+              where: {
+                bName: $scope.selectedBook.bName,
+              }
+            }, {
+              bStatus: 'unavailable',
+              dueDate: Date.now() + BORROW_LIMIT,
+              daysRemaining: 14,
+              clientId: $scope.currentUser.id,
+              renewalsAvailable: $scope.selectedBook.renewalsAvailable - 1
+            }, function(err, info) {
+              if ($scope.books.length > 0) {
+                setTimeout(function() {
+                  $state.go('my-books');
+                }, 3000);
+              }
+            });
+          };
         });
-      };
     }
   ])
   .controller('MyBooksController', ['$scope', 'Client',
