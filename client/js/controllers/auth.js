@@ -37,9 +37,11 @@ angular
   }])
   .controller('SignUpController', ['$scope', 'AuthService', '$state',
       function($scope, AuthService, $state) {
+
     $scope.register = function() {
-      AuthService.register($scope.user.email, $scope.user.password)
+      AuthService.register($scope.user.fname, $scope.user.lname, $scope.user.email, $scope.user.password, $scope.user.age, $scope.user.phoneNumber)
         .then(function() {
+          console.log('Success');
           $state.transitionTo('sign-up-success');
         });
     };

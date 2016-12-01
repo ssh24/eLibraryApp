@@ -6,10 +6,13 @@
 angular
   .module('app')
   .factory('AuthService', ['Client', '$q', '$rootScope', '$state', function(
-      User, $q, $rootScope, $state) {
+    User, $q, $rootScope, $state) {
     function login(email, password) {
       return User
-        .login({email: email, password: password})
+        .login({
+          email: email,
+          password: password
+        })
         .$promise
         .then(function(response) {
           $rootScope.currentUser = {
@@ -22,20 +25,23 @@ angular
 
     function logout() {
       return User
-       .logout()
-       .$promise
-       .then(function() {
-         $rootScope.currentUser = null;
-       });
+        .logout()
+        .$promise
+        .then(function() {
+          $rootScope.currentUser = null;
+        });
     }
 
-    function register(email, password) {
-      return User
-        .create({
-         email: email,
-         password: password
-       })
-       .$promise;
+    function register(fname, lname, email, password, age, phoneNumber) {
+      return User.create({
+          fname: fname,
+          lname: lname,
+          email: email,
+          password: password,
+          age: age,
+          phoneNumber: phoneNumber
+        })
+        .$promise;
     }
 
     function refresh(accessTokenId) {
