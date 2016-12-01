@@ -17,4 +17,4 @@
 coverage
 node_modules
 npm-debug.log
-/server/boot/build-model.js
+server/boot/build-model.js
