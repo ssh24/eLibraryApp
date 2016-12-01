@@ -1,0 +1,16 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "DS": {
+    "host": "",
+    "port": 0,
+    "url": "mssql://test:str0ng100pjs@mssql.strongloop.com/test",
+    "database": "",
+    "password": "",
+    "name": "DS",
+    "user": "",
+    "connector": "mssql"
+  }
+}

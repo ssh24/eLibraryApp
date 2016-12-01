@@ -1,0 +1,22 @@
+<section>
+  <form name="form" ng-submit="submitForm()">
+    <fieldset>
+      <legend>{{action}} book form</legend>
+
+      <div class="form-group">
+        <h2>Select a book:</h2>
+        <select ng-disabled="isDisabled" ng-model="selectedBook" ng-options="b as b.bName for b in books"></select>
+        <br></br>
+      </div>
+
+      <div class="due-date">
+        <h2>Chosen e-Book subscription will expire on {{(dueDate).toUTCString().split(' ')[0]}} {{(dueDate).toUTCString().split(' ')[1]}} {{(dueDate).toUTCString().split(' ')[2]}} {{(dueDate).toUTCString().split(' ')[3]}} at {{(dueDate).toUTCString().split(' ')[4].split(':')[0]}}:{{(dueDate).toUTCString().split(' ')[4].split(':')[1]}} GMT</h2>
+        <br></br>
+      </div>
+
+      <div class="actions">
+        <button>{{action}} book</button>
+      </div>
+    </fieldset>
+  </form>
+  <section>
